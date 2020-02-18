@@ -1,7 +1,7 @@
 /***********************************************************************
 * Program:
 *    Assignment 07, LIST
-*    Brother #######, CS 235
+*    Brother JonesL, CS 235
 * Author:
 *    
 * Summary: 

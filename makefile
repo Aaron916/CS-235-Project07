@@ -1,9 +1,9 @@
 ###############################################################
 # Program:
 #     Assignment 07, LIST
-#     Brother XXXXX, CS235
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Adam Goff, Aaron Rook, Martin Melerio, Tanner Stratford
 # Summary:
 #     <put a description here>
 ###############################################################

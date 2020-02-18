@@ -5,7 +5,7 @@
  *    This will contain just the prototype for fibonacci(). You may
  *    want to put other class definitions here as well.
  * Author
- *    <your names here>
+*     Adam Goff, Aaron Rook, Martin Melerio, Tanner Stratford
  ************************************************************************/
 
 #ifndef FIBONACCI_H
