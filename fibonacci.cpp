@@ -25,7 +25,12 @@ void fibonacci()
    int number;
    cout << "How many Fibonacci numbers would you like to see? ";
    cin  >> number;
-   cout << algorithmOne(number);
+   list<int> fList = algorithmOne(number);
+   for (node *i = fList->pHead;i != nullptr;i = i->pNext)
+   {
+      cout << i.T;
+   }
+   
 
    // your code to display the first <number> Fibonacci numbers
 
