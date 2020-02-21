@@ -23,15 +23,19 @@ class list
 {
 public:
     // constructors and destructors
-    list() : data(NULL), numCapacity(0) { clear(); }
-    list(int newCapacity);
+    list()
+    {
+        pHead = NULL;
+        pTail = NULL;
+        numElements = 0;
+    }
     list(const list <T>& rhs);
     ~list() { if (numCapacity != 0) delete[] data; }
     list<T>& operator = (const list <T>& rhs);
 
     // standard container interfaces
     int size() const { return iBack - iFront + 1; }
-    bool empty() const { return size() == 0; }
+    bool empty() const { return pHead = NULL; }
     void clear() { iFront = 0; iBack = -1; }
 
     // list-specific interfaces
@@ -56,7 +60,7 @@ public:
 
 private:
     // utility functions
-    int iNormalize(int i) const
+    /*int iNormalize(int i) const
     {
         return (i >= 0) ?
             (i % numCapacity) :
@@ -64,13 +68,12 @@ private:
     }
     int iFrontNormalize() const { return iNormalize(iFront); }
     int iBackNormalize() const { return iNormalize(iBack); }
-    void resize(int newCapacity = 0, int option = 0);
+    void resize(int newCapacity = 0, int option = 0);*/
 
     // member variables
-    T* data; // dynamically allocated data for the list
-    int numCapacity; // the size of the data data
-    int iFront; // the index of the first item in the data
-    int iBack; // the index of the last item in the data
+    Node* pHead;
+    Node* pTail;
+    int numElements;
 };
 
 /**************************************************
@@ -421,84 +424,55 @@ list <T> ::list(const list <T>& rhs)
         data[i] = rhs.data[i];
 }
 
-/**********************************************
-* list : NON-DEFAULT CONSTRUCTOR
-* Preallocate the list to "capacity"
-**********************************************/
-template <class T>
-list <T> ::list(int numCapacity)
-{
-    if (numCapacity == 0)
-    {
-        clear();
-        this->numCapacity = 0;
-        this->data = NULL;
-        return;
-    }
-
-    // attempt to allocate
-    try
-    {
-        data = new T[numCapacity];
-    }
-    catch (std::bad_alloc)
-    {
-        throw "ERROR: Unable to allocate buffer";
-    }
-
-    clear();
-    this->numCapacity = numCapacity;
-}
-
 /*******************************************
 * list :: RESIZE
 * Resizes the data as needed.
 *******************************************/
-template <class T>
-void list <T> ::resize(int newCapacity, int option)
-{
-    bool test;
-    int count = 0;
-    T* tempData = new T[newCapacity];
-    int iFront = 0;
-    int iBack = 0;
-
-    for (int i = 0; i < this->size(); i++)
-    {
-        if (data[i] == front())
-            test = true;
-        if (data[i] != front() && test == false)
-            count++;
-    }
-    //Because of the wrap-around concept, this for loop basically counts
-    //the offset. The count is then implemented into the next for loop
-    //which makes it so the new data accounts for the places in the
-    //old data and is able to assign the values from the old spots
-    //into new spots in the data. 
-    for (int i = 0; i < this->size(); i++)
-    {
-        iBack++;
-        //   if (i + count < size())
-        //     tempData[i] = data[i + count];
-        //   else
-        tempData[i] = data[(i + count) % size()];
-    }
-    switch (option)
-    {
-    case 1:
-        iBack--;
-        break;
-    case 2:
-        //do nothing
-        break;
-    }
-    data = tempData;
-
-
-    this->iFront = iFront;
-    this->iBack = iBack;
-    this->numCapacity = newCapacity;
-}
+//template <class T>
+//void list <T> ::resize(int newCapacity, int option)
+//{
+//    bool test;
+//    int count = 0;
+//    T* tempData = new T[newCapacity];
+//    int iFront = 0;
+//    int iBack = 0;
+//
+//    for (int i = 0; i < this->size(); i++)
+//    {
+//        if (data[i] == front())
+//            test = true;
+//        if (data[i] != front() && test == false)
+//            count++;
+//    }
+//    //Because of the wrap-around concept, this for loop basically counts
+//    //the offset. The count is then implemented into the next for loop
+//    //which makes it so the new data accounts for the places in the
+//    //old data and is able to assign the values from the old spots
+//    //into new spots in the data. 
+//    for (int i = 0; i < this->size(); i++)
+//    {
+//        iBack++;
+//        //   if (i + count < size())
+//        //     tempData[i] = data[i + count];
+//        //   else
+//        tempData[i] = data[(i + count) % size()];
+//    }
+//    switch (option)
+//    {
+//    case 1:
+//        iBack--;
+//        break;
+//    case 2:
+//        //do nothing
+//        break;
+//    }
+//    data = tempData;
+//
+//
+//    this->iFront = iFront;
+//    this->iBack = iBack;
+//    this->numCapacity = newCapacity;
+//}
 
 template <class T>
 void list <T> ::push_front(const T& t)
@@ -561,7 +535,7 @@ T list <T> ::front() const
     if (empty())
         throw "ERROR: unable to access data from an empty list";
     else
-        return data[iFrontNormalize()];
+        return pHead->data;
 }
 
 template <class T>
@@ -570,7 +544,7 @@ T list <T> ::back() const
     if (empty())
         throw "ERROR: unable to access data from an empty list";
     else
-        return data[iBackNormalize()];
+        return pTail->data;
 }
 
 }; // namespace custom
