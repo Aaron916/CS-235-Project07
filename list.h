@@ -164,7 +164,8 @@ public:
     friend iterator list <T> ::insert(iterator& it, const T& data);
     friend iterator list <T> ::erase(iterator it);
 
-private:
+
+
     typename list <T> ::Node* p;
 };
 
@@ -228,7 +229,7 @@ public:
         return tmp;
     }
 
-private:
+
     list <T> ::Node* p;
 };
 
@@ -302,7 +303,7 @@ public:
         return p->data;
     }
 
-private:
+
     typename list <T> ::Node* p;
 };
 
