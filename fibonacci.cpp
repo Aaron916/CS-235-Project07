@@ -25,6 +25,7 @@ void fibonacci()
    int number;
    cout << "How many Fibonacci numbers would you like to see? ";
    cin  >> number;
+   cout << algorithmOne(number);
 
    // your code to display the first <number> Fibonacci numbers
 
